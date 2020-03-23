@@ -15,7 +15,7 @@ showerbasetools:{
 showerpcadirection:{
     tool_type: ShowerPCADirection
     BaseTools: @local::showerbasetools
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     NSegments: 6           #If using the RMS gradient to decide what direction to go in
     #this is the number of segements to split the shower into.
     UseStartPosition: true #The direction of the PCA is in the direction of
@@ -27,14 +27,15 @@ showerpcadirection:{
     ShowerPCAOutputLabel: "ShowerPCA"
     }
 
+# Updated gradients and intercepts for ICARUS: 2/17/2020
 showerlinearenergy:{
     tool_type:  ShowerLinearEnergy
     BaseTools: @local::showerbasetools
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     # Overwrite the Gradients and Intercepts in you experiemnt repository
-    Gradients:   [] #Gradient of the linear graph of the total charge to total
+    Gradients:   [0.00246564, 0.00245335, 0.00247403] #Gradient of the linear graph of the total charge to total
     #energy, in the Plane0 plane. in MeV/ADC.
-    Intercepts:  []     #Intercept of the linear graph of the total charge to total
+    Intercepts:  [13.9334, 13.1386, 10.845]     #Intercept of the linear graph of the total charge to total
     ShowerEnergyOutputLabel: "ShowerEnergy"
     ShowerBestPlaneOutputLabel: "ShowerOverallBestPlane"
     }
@@ -49,8 +50,8 @@ shower2Dlinearregressiontrackhitfinder:{
     #as the perpendicualar distance from
     #the best fit line.
     ApplyChargeWeight:     true                  #Apply charge weighting to the fit.
-    PFParticleModuleLabel: "pandora"
-    HitsModuleLabel:       "linecluster"
+    PFParticleModuleLabel: "pandoraGausCryo0"
+    HitsModuleLabel:       "cluster3DCryo0"
     ShowerStartPositionInputLabel: "ShowerStartPosition"
     ShowerDirectionInputLabel: "ShowerDirection"
     InitialTrackHitsOutputLabel: "InitialTrackHits"
@@ -91,7 +92,7 @@ shower3Dtrackhitfinder:{
     tool_type: Shower3DTrackHitFinder
     BaseTools: @local::showerbasetools
 
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     MaxProjectionDist:     10     #Max distance a hit can be in the direction of
     #the shower in cm
     MaxPerpendicularDist:  1      #Max distance a hit can be in the perpendicular
@@ -114,7 +115,7 @@ shower3Dtrackhitfinder:{
 showerpfpvertexstartposition:{
     tool_type: ShowerPFPVertexStartPosition
     BaseTools: @local::showerbasetools
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     ShowerStartPositionOutputLabel: "ShowerStartPosition"
     ShowerDirectionInputLabel: "ShowerDirection"
     }
@@ -155,8 +156,8 @@ showertrackhitdirection:{
     UsePandoraVertex:      true #Direction from point defined as
     #(Position of Hit - Vertex) rather than
     #(Position of Hit - Track Start Point).
-    HitModuleLabel:        "linecluster"
-    PFParticleModuleLabel: "pandora"
+    HitModuleLabel:        "cluster3DCryo0"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     InitialTrackHitsInputLabel: "InitialTrackHits"
     ShowerStartPositionInputLabel: "ShowerStartPosition"
     InitialTrackInputLabel: "InitialTrack"
@@ -228,8 +229,8 @@ showertrackpcadirection:{
     DebugEVD:               false
     ChargeWeighted:         true      #Should the PCA be charge weighted.
     MinPCAPoints:           10        #Number of spacepoints needed to the anlaysis.
-    PFParticleModuleLabel: "pandora"
-    HitModuleLabel:        "linecluster"
+    PFParticleModuleLabel: "pandoraGausCryo0"
+    HitModuleLabel:        "cluster3DCryo0"
     BaseTools:        @local::showerbasetools
     CalorimetryAlg:   @local::standard_calorimetryalgmc
     ShowerStartPositionInputLabel: "ShowerStartPosition"
@@ -242,8 +243,8 @@ showerstartpositioncheater:{
     tool_type:               ShowerStartPositionCheater
     BaseTools:           @local::showerbasetools
     TRACSCheatingAlg:    @local::standard_tracscheatingalg
-    PFParticleModuleLabel:  "pandora"
-    HitModuleLabel:         "linecluster"
+    PFParticleModuleLabel:  "pandoraGausCryo0"
+    HitModuleLabel:         "cluster3DCryo0"
     ShowerStartPositionOutputLabel: "ShowerStartPosition"
     TrueParticleOutputLabel: "TrueParticle"
     }
@@ -252,7 +253,7 @@ showerdirectioncheater:{
     tool_type:              ShowerDirectionCheater
     BaseTools:          @local::showerbasetools
     TRACSCheatingAlg:   @local::standard_tracscheatingalg
-    PFParticleModuleLabel:  "pandora"
+    PFParticleModuleLabel:  "pandoraGausCryo0"
     NSegments:              6     #Number of segements the shower should be split into
     #for the RMS analysis
     RMSFlip:                false #Decide to flip the direction on the RMS info
@@ -267,8 +268,8 @@ showertrackfindercheater:{
     tool_type:               ShowerTrackFinderCheater
     BaseTools:           @local::showerbasetools
     TRACSCheatingAlg:    @local::standard_tracscheatingalg
-    PFParticleModuleLabel:  "pandora"
-    HitModuleLabel:         "linecluster"
+    PFParticleModuleLabel:  "pandoraGausCryo0"
+    HitModuleLabel:         "cluster3DCryo0"
     MaxProjectionDist:      10
     MaxPerpendicularDist:   1
     DebugEVD:               false
@@ -282,7 +283,7 @@ showertrackfindercheater:{
 showertracktrajtospacepoint:{
     tool_type: ShowerTrackTrajToSpacepoint
     BaseTools: @local::showerbasetools
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     MaxDist:               1  #Max Distance a trajectory point can be away
     #from a spacepoint in cm.
     InitialTrackSpacePointsOuputLabel: "InitialTrackSpacePoints"
@@ -312,7 +313,7 @@ showerslidingstandardcalodedx:{
     ScaleWithEnergy:      false #Vary the parameters as function of E
     EnergyResidualConst:  -0.1   #Linear dimensionless value to vary the energy with
     EnergyLengthConst:    0.1   #Linear dimensionless value to vary the energy with
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     ShowerEnergyInputLabel: "ShowerEnergy"
     ShowerStartPositionInputLabel: "ShowerStartPosition"
     InitialTrackSpacePointsInputLabel: "InitialTrackSpacePoints"
@@ -325,7 +326,7 @@ showerslidingstandardcalodedx:{
 showerresidualtrackhitfinder:{
     tool_type: ShowerResidualTrackHitFinder
     BaseTools: @local::showerbasetools
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     UseShowerDirection:    true
     ForwardHitsOnly:       true
     MaxResidualDiff:       0.3
@@ -350,7 +351,7 @@ showerresidualtrackhitfinder:{
 showerpcapropergationstartposition:{
     tool_type: ShowerPCAPropergationStartPosition
     BaseTools: @local::showerbasetools
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     ShowerStartPositionOutputLabel: "ShowerStartPosition"
     ShowerCentreInputLabel: "ShowerCentre"
     ShowerDirectionInputLabel: "ShowerDirection"
@@ -378,7 +379,7 @@ showerlength90percentile:{
     tool_type:  ShowerLength90Percentile
     BaseTools: @local::showerbasetools
 
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     ShowerStartPositionInputLabel: "ShowerStartPosition"
     ShowerDirectionInputLabel: "ShowerDirection"
     ShowerLengthOuputLabel: "ShowerLength"
@@ -389,7 +390,7 @@ showerpcaeigenvaluelength:{
     tool_type: ShowerPCAEigenvalueLength
     BaseTools: @local::showerbasetools
 
-    PFParticleModuleLabel: "pandora"
+    PFParticleModuleLabel: "pandoraGausCryo0"
     ShowerPCAInputLabel: "ShowerPCA"
     ShowerLengthOuputLabel: "ShowerLength"
     ShowerOpeningAngleOuputLabel: "ShowerOpeningAngle"

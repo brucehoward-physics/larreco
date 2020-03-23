@@ -130,9 +130,9 @@ standard_showervalidation: {
  module_type: "ShowerValidation"
  GenieGenModuleLabel:      "generator"
  LArGeantModuleLabel:      "largeant"
- HitsModuleLabel:          "gaushit"
- TrackModuleLabel:         "pandoraTrack"
- PFParticleLabel:          "pandora"
+ HitsModuleLabel:          "cluster3DCryo0" # "gaushit"
+ TrackModuleLabel:         "pandoraTrackGausCryo0" # "pandoraTrack"
+ PFParticleLabel:          "pandoraGausCryo0" # "pandora"
  PFPValidation:             true
  ShowerModuleLabels:        ["emshower"]
  HitModuleLabels:           ["gaushit"]
