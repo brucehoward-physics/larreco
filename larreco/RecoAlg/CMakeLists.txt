@@ -9,6 +9,7 @@ art_make(LIB_LIBRARIES
            ROOT::Physics
            ROOT::Matrix
            ROOT::Minuit
+	   larreco_RecoAlg_MCRecoUtils	
            canvas
            ${FHICLCPP}
            cetlib_except
@@ -21,6 +22,7 @@ add_subdirectory(ImagePatternAlgs)
 add_subdirectory(PMAlg)
 add_subdirectory(TCAlg)
 add_subdirectory(xml)
+add_subdirectory(MCRecoUtils)
 
 install_headers()
 install_fhicl()
