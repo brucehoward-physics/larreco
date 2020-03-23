@@ -8,20 +8,23 @@ fwdir  product_dir config_data
 #
 product         version
 
-larsim		v08_20_02
-eigen		v3_3_5
-cetbuildtools	v7_15_01	-	only_for_build
+larsim			v08_20_02
+eigen			v3_3_5
+
+larpandoracontent 	v03_15_15
+
+cetbuildtools		v7_15_01	-	only_for_build
 end_product_list
 
-qualifier     larsim         eigen
-e19:py2:debug e19:py2:debug  -nq-
-e19:py2:prof  e19:py2:prof   -nq-
-e19:debug     e19:debug      -nq-
-e19:prof      e19:prof       -nq-
-c7:py2:debug  c7:py2:debug   -nq-
-c7:py2:prof   c7:py2:prof    -nq-
-c7:debug      c7:debug       -nq-
-c7:prof       c7:prof        -nq-
+qualifier     larsim         eigen larpandoracontent
+e19:py3:debug e19:py3:debug  -nq-  e19:py3:debug
+e19:py3:prof  e19:py3:prof   -nq-  e19:py3:prof
+e19:debug     e19:debug      -nq-  e19:debug
+e19:prof      e19:prof       -nq-  e19:prof
+c7:py3:debug  c7:py3:debug   -nq-  c7:py3:debug
+c7:py3:prof   c7:py3:prof    -nq-  c7:py3:prof
+c7:debug      c7:debug       -nq-  c7:debug
+c7:prof       c7:prof        -nq-  c7:prof
 
 end_qualifier_list
 
