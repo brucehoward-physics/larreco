@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////////////////////////////
 /// \file   CandHitDerivative.cc
 /// \author T. Usher
+//note for MT: this implementation is not thread-safe 
 ////////////////////////////////////////////////////////////////////////
 
 #include "larreco/HitFinder/HitFinderTools/ICandidateHitFinder.h"
@@ -24,14 +25,10 @@ class CandHitDerivative : ICandidateHitFinder
 public:
     explicit CandHitDerivative(const fhicl::ParameterSet& pset);
 
-    ~CandHitDerivative();
-
-    void configure(const fhicl::ParameterSet& pset) override;
-
     void findHitCandidates(const recob::Wire::RegionsOfInterest_t::datarange_t&,
-                           size_t,
-                           size_t,
-                           size_t,
+                           const size_t,
+                           const size_t,
+                           const size_t,
                            HitCandidateVec&) const override;
 
     void MergeHitCandidates(const recob::Wire::RegionsOfInterest_t::datarange_t&,
@@ -42,7 +39,7 @@ private:
     // Internal functions
     void findHitCandidates(Waveform::const_iterator,
                            Waveform::const_iterator,
-                           size_t,
+                           const size_t,
                            int,
                            float,
                            HitCandidateVec&) const;
@@ -83,16 +80,6 @@ private:
 // Constructor.
 CandHitDerivative::CandHitDerivative(const fhicl::ParameterSet& pset)
 {
-    configure(pset);
-}
-
-CandHitDerivative::~CandHitDerivative()
-{
-}
-
-void CandHitDerivative::configure(const fhicl::ParameterSet& pset)
-{
-    // Recover our parameters
     fPlane               = pset.get< size_t >("Plane",               0);
     fMinDeltaTicks       = pset.get< int    >("MinDeltaTicks",       0);
     fMaxDeltaTicks       = pset.get< int    >("MaxDeltaTicks",       30);
@@ -125,16 +112,16 @@ void CandHitDerivative::configure(const fhicl::ParameterSet& pset)
 }
 
 void CandHitDerivative::findHitCandidates(const recob::Wire::RegionsOfInterest_t::datarange_t& dataRange,
-                                          size_t                                               roiStartTick,
-                                          size_t                                               channel,
-                                          size_t                                               eventCount,
+                                          const size_t                                         roiStartTick,
+                                          const size_t                                         channel,
+                                          const size_t                                         eventCount,
                                           HitCandidateVec&                                     hitCandidateVec) const
 {
     // In this case we want to find hit candidates based on the derivative of of the input waveform
     // We get this from our waveform algs too...
     Waveform rawDerivativeVec;
     Waveform derivativeVec;
-    
+
     // Recover the actual waveform
     const Waveform& waveform = dataRange.data();
 
@@ -218,7 +205,7 @@ void CandHitDerivative::findHitCandidates(const recob::Wire::RegionsOfInterest_t
 
 void CandHitDerivative::findHitCandidates(Waveform::const_iterator startItr,
                                           Waveform::const_iterator stopItr,
-                                          size_t                   roiStartTick,
+                                          const size_t             roiStartTick,
                                           int                      dTicksThreshold,
                                           float                    dPeakThreshold,
                                           HitCandidateVec&         hitCandidateVec) const
@@ -265,7 +252,7 @@ void CandHitDerivative::findHitCandidates(Waveform::const_iterator startItr,
         }
 
         // Create a new hit candidate and store away
-        HitCandidate_t hitCandidate;
+        HitCandidate hitCandidate;
 
         Waveform::const_iterator peakItr = std::min_element(maxItr,minItr,[](const auto& left, const auto& right){return std::fabs(left) < std::fabs(right);});
 
