@@ -274,11 +274,12 @@ namespace ShowerRecoTools{
       //Get the direction of the trajectory point
       geo::Vector_t TrajDirection_vec = InitialTrack.DirectionAtPoint(index);
       TVector3 TrajDirection = {TrajDirection_vec.X(),TrajDirection_vec.Y(),TrajDirection_vec.Z()};
+      TVector3 TrajDirectionInYZ = {0.,TrajDirection_vec.Y(),TrajDirection_vec.Z()}; // we're concerned with the YZ projection in MinAngle cut
 
       //If the direction is in the same direction as the wires within some tolerance the hit finding struggles. Let remove these.
       TVector3 PlaneDirection = fGeom->Plane(planeid).GetIncreasingWireDirection();
 
-      if(TMath::Abs((TMath::Pi()/2 - TrajDirection.Angle(PlaneDirection))) < fMinAngleToWire){
+      if(TMath::Abs((TMath::Pi()/2 - TrajDirectionInYZ.Angle(PlaneDirection))) < fMinAngleToWire){
         mf::LogWarning("ShowerSlidingStandardCalodEdx")
           << "remove from angle cut" << std::endl;
         continue;
