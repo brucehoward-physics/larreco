@@ -389,6 +389,11 @@ namespace ShowerRecoTools{
       }
     }
 
+    if (best_plane=-999){
+      std::cout << "## Best plane = -999 ... Not setting dE/dx ##" << std::endl;
+      return 1;
+    }
+
     //Need to sort out errors sensibly.
     ShowerEleHolder.SetElement(dEdx_val,dEdx_valErr,fShowerdEdxOuputLabel);
     ShowerEleHolder.SetElement(best_plane,fShowerBestPlaneOutputLabel);
