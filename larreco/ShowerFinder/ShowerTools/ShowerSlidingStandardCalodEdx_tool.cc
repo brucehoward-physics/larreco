@@ -389,7 +389,7 @@ namespace ShowerRecoTools{
       }
     }
 
-    if (best_plane=-999){
+    if (best_plane==-999){
       std::cout << "## Best plane = -999 ... Not setting dE/dx ##" << std::endl;
       return 1;
     }
