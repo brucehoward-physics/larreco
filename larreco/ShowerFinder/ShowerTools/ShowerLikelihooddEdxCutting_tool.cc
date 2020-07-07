@@ -219,6 +219,7 @@ namespace ShowerRecoTools {
       }
     }
 
+    bool check = false;
     for(auto const& dEdx_plane: dEdx_plane_final){
       
       //Redefine the best plane
@@ -234,16 +235,13 @@ namespace ShowerRecoTools {
       }
       
       dEdx_final.push_back(TMath::Median((dEdx_plane.second).size(), &(dEdx_plane.second)[0]));
-      dEdx_finalErr.push_back(-999);  
+      dEdx_finalErr.push_back(-999);
+      check = true;
     }
 
-    if (fDefineBestPlane && best_plane==-999){
-      // BH: If the best plane isn't set then don't set the dE/dx element...
-      // For now doing this only if you are having it define the best plane...
-      // Maybe it's okay to do it in all scenarios though...
-      std::cout << "## Best plane = -999 ... Not setting dE/dx ##" << std::endl;
+    //Check at least one plane has the information
+    if(!check)
       return 1;
-    }
 
     if(fDefineBestPlane){
       ShowerEleHolder.SetElement(best_plane,fShowerBestPlaneOutputLabel);
